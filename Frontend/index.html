@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Playground</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>AI-Powered Online Code Playground</h1>
+
+    <div class="editor-container">
+
+        <div class="editor">
+            <h3>HTML</h3>
+            <textarea id="htmlCode"></textarea>
+        </div>
+
+        <div class="editor">
+            <h3>CSS</h3>
+            <textarea id="cssCode"></textarea>
+        </div>
+
+        <div class="editor">
+            <h3>JavaScript</h3>
+            <textarea id="jsCode"></textarea>
+        </div>
+
+    </div>
+    <div class="buttons">
+    <button onclick="runCode()">Run Code</button>
+    <button onclick="clearCode()">Clear</button>
+    </div>
+
+    <h2>Output</h2>
+
+<iframe id="output"></iframe>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
