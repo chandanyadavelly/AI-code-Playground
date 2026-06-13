@@ -1,9 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
+import google.generativeai as genai
+from config import GEMINI_API_KEY
 
 app = Flask(__name__)
 CORS(app)
+
+genai.configure(api_key=GEMINI_API_KEY)
+
+model_ai = genai.GenerativeModel("gemini-2.5-flash")
 
 # Load ML files
 model = joblib.load("../ML/model.pkl")
@@ -58,6 +64,62 @@ def predict():
     return jsonify({
         "prediction": prediction
     })
+
+@app.route("/debug", methods=["POST"])
+def debug_code():
+
+    data = request.get_json()
+
+    code = data.get("code", "")
+
+    prompt = f"""
+You are an expert programming debugger.
+
+Analyze the following HTML, CSS and JavaScript code.
+
+1. Identify errors.
+2. Explain the issue clearly.
+3. Suggest fixes.
+4. Provide corrected code if needed.
+
+Code:
+{code}
+"""
+
+    response = model_ai.generate_content(prompt)
+
+    return jsonify({
+        "suggestion": response.text
+    })
+
+
+@app.route("/explain", methods=["POST"])
+def explain_code():
+
+    data = request.get_json()
+
+    code = data.get("code", "")
+
+    prompt = f"""
+You are a programming tutor.
+
+Explain the following code in simple language.
+
+Requirements:
+1. Explain what the code does.
+2. Mention important HTML, CSS and JavaScript concepts used.
+3. Keep the explanation beginner-friendly.
+
+Code:
+{code}
+"""
+
+    response = model_ai.generate_content(prompt)
+
+    return jsonify({
+        "explanation": response.text
+    })
+
 
 if __name__ == "__main__":
     app.run(debug=True)
