@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Code Playground</title>
-
+    <div class="project-info">
+    Write, execute, analyze and debug HTML, CSS and JavaScript code using Machine Learning and Generative AI.
+</div>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -31,18 +33,30 @@
         </div>
 
     </div>
+
     <div class="buttons">
-    <button onclick="runCode()">Run Code</button>
-    <button onclick="clearCode()">Clear</button>
+        <button onclick="runCode()">Run Code</button>
+        <button onclick="clearCode()">Clear</button>
+        <button onclick="checkErrors()">Check Errors</button>
+        <button onclick="debugWithAI()">Debug with AI</button>
+        <button onclick="explainCode()">Explain Code</button>
     </div>
 
     <h2>Output</h2>
 
-<iframe id="output"></iframe>
+    <h3 id="predictionResult"></h3>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
-<script src="script.js"></script>
+    <div id="aiSuggestion"></div>
 
+    <div id="codeExplanation"></div>
+
+    <iframe id="output"></iframe>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
+    <script src="script.js"></script>
+    <footer>
+    AI-Powered Online Code Playground | Built using Flask, Naive Bayes & Gemini AI
+</footer>
 </body>
 
 </html>

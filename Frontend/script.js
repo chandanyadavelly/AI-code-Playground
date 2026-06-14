@@ -78,3 +78,102 @@ function clearCode() {
 
     document.getElementById("output").srcdoc = "";
 }
+
+async function checkErrors() {
+
+    let html = htmlEditor.getValue();
+    let css = cssEditor.getValue();
+    let js = jsEditor.getValue();
+
+    let code = html + "\n" + css + "\n" + js;
+
+    let response = await fetch(
+        "http://127.0.0.1:5000/predict",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                code: code
+            })
+        }
+    );
+
+    let result = await response.json();
+
+   if (result.prediction === "error") {
+
+    let resultBox = document.getElementById("predictionResult");
+
+    resultBox.innerText = "❌ Code Contains Errors";
+    resultBox.style.color = "red";
+
+} else {
+
+    let resultBox = document.getElementById("predictionResult");
+
+    resultBox.innerText = "✅ Error-Free Code";
+    resultBox.style.color = "green";
+}
+}
+
+async function debugWithAI() {
+
+    let html = htmlEditor.getValue();
+    let css = cssEditor.getValue();
+    let js = jsEditor.getValue();
+
+    let code = html + "\n" + css + "\n" + js;
+
+    document.getElementById("aiSuggestion").innerHTML =
+    "🤖 AI is analyzing your code...";
+
+    let response = await fetch(
+        "http://127.0.0.1:5000/debug",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                code: code
+            })
+        }
+    );
+
+    let result = await response.json();
+
+    document.getElementById("aiSuggestion").innerText =
+        result.suggestion;
+}
+
+async function explainCode() {
+
+    let html = htmlEditor.getValue();
+    let css = cssEditor.getValue();
+    let js = jsEditor.getValue();
+
+    let code = html + "\n" + css + "\n" + js;
+
+    document.getElementById("codeExplanation").innerHTML =
+        "📖 AI is explaining your code...";
+
+    let response = await fetch(
+        "http://127.0.0.1:5000/explain",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                code: code
+            })
+        }
+    );
+
+    let result = await response.json();
+
+    document.getElementById("codeExplanation").innerText =
+        result.explanation;
+}
