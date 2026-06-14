@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import google.generativeai as genai
-from config import GEMINI_API_KEY
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(
+    api_key=os.environ.get("GEMINI_API_KEY")
+)
 
 model_ai = genai.GenerativeModel("gemini-2.5-flash")
 
@@ -122,4 +124,5 @@ Code:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
