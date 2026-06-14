@@ -88,7 +88,7 @@ async function checkErrors() {
     let code = html + "\n" + css + "\n" + js;
 
     let response = await fetch(
-        "http://127.0.0.1:5000/predict",
+        "https://ai-code-playground.onrender.com/predict",
         {
             method: "POST",
             headers: {
@@ -130,7 +130,7 @@ async function debugWithAI() {
     "🤖 AI is analyzing your code...";
 
     let response = await fetch(
-        "http://127.0.0.1:5000/debug",
+        "https://ai-code-playground.onrender.com/debug",
         {
             method: "POST",
             headers: {
@@ -160,7 +160,7 @@ async function explainCode() {
         "📖 AI is explaining your code...";
 
     let response = await fetch(
-        "http://127.0.0.1:5000/explain",
+        "https://ai-code-playground.onrender.com/explain",
         {
             method: "POST",
             headers: {
