@@ -52,21 +52,19 @@ def predict():
 
     code = data.get("code", "")
 
+    # Rule-based syntax checking
     rule_result = basic_syntax_check(code)
 
     if rule_result:
         return jsonify({
-            "prediction": rule_result
+            "prediction": "error"
         })
 
-    code_vector = vectorizer.transform([code])
-
-    prediction = model.predict(code_vector)[0]
-
+    # No syntax issues found
     return jsonify({
-        "prediction": prediction
+        "prediction": "no_error"
     })
-
+    
 @app.route("/debug", methods=["POST"])
 def debug_code():
 
